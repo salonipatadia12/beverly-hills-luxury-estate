@@ -1,26 +1,156 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* ─── Reset ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── CSS Variables ──────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gold: #C9A96E;
+  --dark: #0A0A0A;
+  --linen: #F0ECE4;
+  --linen-deep: #F5F3EE;
+  --white: #FFFFFF;
+  --font-serif: var(--font-cormorant, 'Cormorant Garamond', Georgia, serif);
+  --font-sans: var(--font-outfit, 'Outfit', system-ui, sans-serif);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base ───────────────────────────────────────────── */
+html {
+  scroll-behavior: auto;
+  font-size: 16px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--linen);
+  color: var(--dark);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ─── Global link reset ──────────────────────────────── */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ─── Lenis smooth scroll ────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* ─── Ken Burns animation (hero fallback) ────────────── */
+@keyframes ken-burns {
+  0%   { transform: scale(1.0) translate(0, 0); }
+  50%  { transform: scale(1.06) translate(-1%, -0.5%); }
+  100% { transform: scale(1.1) translate(-2%, -1%); }
+}
+
+/* ─── Scroll indicator pulse ─────────────────────────── */
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50%       { opacity: 1;   transform: scaleY(1.3); }
+}
+
+/* ─── Gold marker pulse (map) ────────────────────────── */
+@keyframes marker-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0.5); }
+  50%       { box-shadow: 0 0 0 12px rgba(201,169,110,0); }
+}
+
+/* ─── Fade up (used in scroll cinema overlays) ───────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Stat counter shimmer ───────────────────────────── */
+@keyframes shimmer {
+  0%   { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Selection color ────────────────────────────────── */
+::selection {
+  background: rgba(201, 169, 110, 0.25);
+  color: #0A0A0A;
+}
+
+/* ─── Grain texture overlay (applied via pseudo-element in layout) ─── */
+.grain-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+}
+
+/* ─── Horizontal scroll strip (used in gallery) ─── */
+.h-scroll-strip {
+  display: flex;
+  overflow-x: auto;
+  gap: 3px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+}
+.h-scroll-strip:active {
+  cursor: grabbing;
+}
+.h-scroll-strip::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Section reveal animation ─── */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+.reveal.is-visible {
+  animation: reveal-up 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ─── Stagger delays for card grids ─── */
+.reveal-delay-1  { animation-delay: 0.06s; }
+.reveal-delay-2  { animation-delay: 0.12s; }
+.reveal-delay-3  { animation-delay: 0.18s; }
+.reveal-delay-4  { animation-delay: 0.24s; }
+.reveal-delay-5  { animation-delay: 0.30s; }
+.reveal-delay-6  { animation-delay: 0.36s; }
+.reveal-delay-7  { animation-delay: 0.42s; }
+.reveal-delay-8  { animation-delay: 0.48s; }
+.reveal-delay-9  { animation-delay: 0.54s; }
+.reveal-delay-10 { animation-delay: 0.60s; }
+.reveal-delay-11 { animation-delay: 0.66s; }
