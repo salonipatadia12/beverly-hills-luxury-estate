@@ -27,6 +27,7 @@ export const DirectionAwareHover = ({
   const [direction, setDirection] = useState<
     "top" | "bottom" | "left" | "right" | string
   >("left");
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -65,7 +66,11 @@ export const DirectionAwareHover = ({
 
   return (
     <motion.div
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={(e) => {
+        handleMouseEnter(e);
+        setIsHovered(true);
+      }}
+      onMouseLeave={() => setIsHovered(false)}
       ref={ref}
       className={cn(
         "bg-transparent rounded-lg overflow-hidden group/card relative h-full",
@@ -116,17 +121,20 @@ export const DirectionAwareHover = ({
 
       {/* Text overlay - direct child of card, appears on hover */}
       <motion.div
-        variants={textVariants}
-        initial="initial"
-        whileHover={direction}
+        initial={{ opacity: 0, y: 10 }}
+        animate={isHovered ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
         transition={{
-          duration: 0.5,
+          duration: 0.3,
           ease: "easeOut",
         }}
         className={cn(
-          "text-white absolute bottom-4 left-4 z-40 pointer-events-none",
+          "text-white absolute bottom-0 left-0 right-0 z-40 pointer-events-none",
           childrenClassName
         )}
+        style={{
+          background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 70%, transparent 100%)',
+          padding: '24px 24px 20px 24px',
+        }}
       >
         {children}
       </motion.div>
