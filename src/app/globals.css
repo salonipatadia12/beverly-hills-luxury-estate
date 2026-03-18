@@ -9,15 +9,77 @@
   padding: 0;
 }
 
-/* ─── CSS Variables ──────────────────────────────────── */
+/* ─── CSS Variables - Dark Luxury Palette ──────────────────────────────────── */
 :root {
+  /* Dark luxury backgrounds */
+  --color-bg-primary: #0A0A0A;      /* Rich black - main background */
+  --color-bg-secondary: #141414;    /* Dark charcoal - cards/sections */
+  --color-bg-tertiary: #1A1A1A;     /* Subtle section differentiation */
+
+  /* Text colors */
+  --color-text-primary: #F5F0EB;    /* Warm off-white - primary text */
+  --color-text-secondary: #A09B93;  /* Muted warm gray - secondary text */
+
+  /* Accent gold */
+  --color-accent-gold: #C9A96E;     /* Luxury gold - highlights, labels */
+  --color-accent-gold-hover: #D4B87A; /* Lighter gold on hover */
+
+  /* Borders and dividers */
+  --color-border: rgba(201, 169, 110, 0.15); /* Subtle gold borders */
+  --color-divider: rgba(201, 169, 110, 0.2); /* Gold dividers */
+
+  /* Legacy variables (for backward compatibility) */
   --gold: #C9A96E;
   --dark: #0A0A0A;
   --linen: #F0ECE4;
   --linen-deep: #F5F3EE;
   --white: #FFFFFF;
+
+  /* Typography */
   --font-serif: var(--font-cormorant, 'Cormorant Garamond', Georgia, serif);
   --font-sans: var(--font-outfit, 'Outfit', system-ui, sans-serif);
+
+  /* === PREMIUM VISUAL TOKENS === */
+
+  /* Shadows — layered for depth */
+  --shadow-card:
+    0 0 0 1px rgba(201, 169, 110, 0.06) inset,
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-card-hover:
+    0 0 0 1px rgba(201, 169, 110, 0.12) inset,
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    0 0 40px rgba(201, 169, 110, 0.04);
+  --shadow-glow-gold:
+    0 0 20px rgba(201, 169, 110, 0.15),
+    0 0 40px rgba(201, 169, 110, 0.05);
+  --shadow-inner:
+    inset 0 1px 3px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+
+  /* Glass */
+  --glass-bg: rgba(20, 20, 20, 0.6);
+  --glass-bg-hover: rgba(20, 20, 20, 0.75);
+  --glass-blur: blur(16px);
+  --glass-border: 1px solid rgba(201, 169, 110, 0.08);
+  --glass-border-hover: 1px solid rgba(201, 169, 110, 0.2);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Transitions */
+  --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.2s var(--transition-smooth);
+  --transition-medium: 0.35s var(--transition-spring);
+
+  /* Gradient text */
+  --gradient-gold: linear-gradient(135deg, #C9A96E 0%, #E8D5A3 45%, #C9A96E 55%, #A68B5B 100%);
+  --gradient-gold-shimmer: linear-gradient(90deg, #C9A96E 0%, #E8D5A3 25%, #F0E6C8 50%, #E8D5A3 75%, #C9A96E 100%);
 }
 
 /* ─── Base ───────────────────────────────────────────── */
@@ -27,13 +89,29 @@ html {
 }
 
 body {
-  background-color: var(--linen);
-  color: var(--dark);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
   font-family: var(--font-sans);
   font-weight: 300;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: none; /* Hide default cursor for custom cursor */
+}
+
+/* Restore default cursor on form inputs and specific elements */
+body input,
+body textarea,
+body select,
+body [data-default-cursor] {
+  cursor: auto !important;
+}
+
+/* Ensure all interactive elements have no cursor (custom cursor handles it) */
+body a,
+body button,
+body [role="button"] {
+  cursor: none;
 }
 
 /* ─── Global link reset ──────────────────────────────── */
@@ -81,16 +159,28 @@ html.lenis body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ─── Stat counter shimmer ───────────────────────────── */
-@keyframes shimmer {
+/* ─── Stat counter fade-in (renamed from shimmer) ───────────────────────────── */
+@keyframes stat-fade-in {
   0%   { opacity: 0; transform: translateY(16px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* ─── Gold shimmer animation for text ───────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ─── Chevron bounce animation for scroll indicator ───────────────────────────── */
+@keyframes chevron-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.8; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
 /* ─── Selection color ────────────────────────────────── */
 ::selection {
-  background: rgba(201, 169, 110, 0.25);
-  color: #0A0A0A;
+  background: rgba(201, 169, 110, 0.3);
+  color: var(--color-text-primary);
 }
 
 /* ─── Grain texture overlay (applied via pseudo-element in layout) ─── */
@@ -154,3 +244,99 @@ html.lenis body {
 .reveal-delay-9  { animation-delay: 0.54s; }
 .reveal-delay-10 { animation-delay: 0.60s; }
 .reveal-delay-11 { animation-delay: 0.66s; }
+
+/* ─── Accessibility: Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable all GSAP animations */
+  [style*="will-change"] {
+    will-change: auto !important;
+  }
+
+  /* Disable marquee */
+  .marquee {
+    animation: none !important;
+  }
+
+  /* Disable Lenis smooth scroll */
+  html.lenis {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Focus Visible Styles for Accessibility ─── */
+*:focus-visible {
+  outline: 2px solid var(--color-accent-gold);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent-gold);
+  outline-offset: 4px;
+}
+
+/* ─── Screen Reader Only ─── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ─── Skip to Content Link ─── */
+.skip-to-content:focus {
+  left: 1rem !important;
+  top: 1rem !important;
+}
+
+/* ─── Premium Visual Utilities ─── */
+
+/* Gradient gold shimmer text */
+.text-shimmer {
+  background: var(--gradient-gold-shimmer);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Sequential shimmer delays for stats */
+.text-shimmer-delay-1 { animation-delay: 0.5s; }
+.text-shimmer-delay-2 { animation-delay: 1s; }
+.text-shimmer-delay-3 { animation-delay: 1.5s; }
+.text-shimmer-delay-4 { animation-delay: 2s; }
+.text-shimmer-delay-5 { animation-delay: 2.5s; }
+
+/* Glass card component */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: all 0.35s var(--transition-spring);
+}
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  border: var(--glass-border-hover);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+

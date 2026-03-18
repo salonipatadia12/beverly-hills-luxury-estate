@@ -1,18 +1,58 @@
 'use client'
+import { useRef, useEffect } from 'react'
+import { gsap } from '@/lib/animations'
 
 export default function Footer() {
   const year = new Date().getFullYear()
+  const footerRef = useRef<HTMLElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const footer = footerRef.current
+    const content = contentRef.current
+    if (!footer || !content) return
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        content,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: footer,
+            start: 'top 85%',
+            once: true,
+          },
+        }
+      )
+    }, footer)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
     <footer
+      ref={footerRef}
       style={{
         background: '#0A0A0A',
-        padding:    '60px 80px 40px',
-        color:      '#FFFFFF',
-        borderTop:  '1px solid rgba(255,255,255,0.08)',
+        padding: '60px 80px 40px',
+        color: '#FFFFFF',
+        position: 'relative',
       }}
     >
-      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      {/* Gold gradient top border */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: '10%',
+        right: '10%',
+        height: '1px',
+        background: 'linear-gradient(to right, transparent 0%, rgba(212, 168, 83, 0.4) 20%, rgba(212, 168, 83, 0.6) 50%, rgba(212, 168, 83, 0.4) 80%, transparent 100%)',
+      }} />
+      <div ref={contentRef} style={{ maxWidth: '1400px', margin: '0 auto', opacity: 0 }}>
 
         {/* Top row */}
         <div style={{
@@ -65,15 +105,15 @@ export default function Footer() {
                 key={link}
                 href={`#${link.toLowerCase()}`}
                 style={{
-                  display:       'block',
-                  fontFamily:    'var(--font-sans)',
-                  fontSize:      '13px',
-                  fontWeight:    300,
-                  color:         'rgba(255,255,255,0.55)',
-                  marginBottom:  '12px',
-                  transition:    'color 0.3s ease',
+                  display: 'block',
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '13px',
+                  fontWeight: 300,
+                  color: 'rgba(255,255,255,0.55)',
+                  marginBottom: '12px',
+                  transition: 'color 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
-                onMouseEnter={e => e.currentTarget.style.color = '#C9A96E'}
+                onMouseEnter={e => e.currentTarget.style.color = '#D4A853'}
                 onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.55)'}
               >
                 {link}
@@ -97,15 +137,15 @@ export default function Footer() {
             <a
               href="mailto:alexandra@obsidianluxury.com"
               style={{
-                display:       'block',
-                fontFamily:    'var(--font-sans)',
-                fontSize:      '13px',
-                fontWeight:    300,
-                color:         'rgba(255,255,255,0.55)',
-                marginBottom:  '12px',
-                transition:    'color 0.3s ease',
+                display: 'block',
+                fontFamily: 'var(--font-sans)',
+                fontSize: '13px',
+                fontWeight: 300,
+                color: 'rgba(255,255,255,0.55)',
+                marginBottom: '12px',
+                transition: 'color 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
               }}
-              onMouseEnter={e => e.currentTarget.style.color = '#C9A96E'}
+              onMouseEnter={e => e.currentTarget.style.color = '#D4A853'}
               onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.55)'}
             >
               alexandra@obsidianluxury.com
@@ -113,14 +153,14 @@ export default function Footer() {
             <a
               href="tel:+13105550124"
               style={{
-                display:    'block',
+                display: 'block',
                 fontFamily: 'var(--font-sans)',
-                fontSize:   '13px',
+                fontSize: '13px',
                 fontWeight: 300,
-                color:      'rgba(255,255,255,0.55)',
-                transition: 'color 0.3s ease',
+                color: 'rgba(255,255,255,0.55)',
+                transition: 'color 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
               }}
-              onMouseEnter={e => e.currentTarget.style.color = '#C9A96E'}
+              onMouseEnter={e => e.currentTarget.style.color = '#D4A853'}
               onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.55)'}
             >
               +1 (310) 555-0124
@@ -131,9 +171,9 @@ export default function Footer() {
 
         {/* Divider */}
         <div style={{
-          height:        '1px',
-          background:    'rgba(255,255,255,0.08)',
-          marginBottom:  '32px',
+          height: '1px',
+          background: 'linear-gradient(to right, transparent 0%, rgba(212, 168, 83, 0.15) 50%, transparent 100%)',
+          marginBottom: '32px',
         }} />
 
         {/* Bottom row */}
