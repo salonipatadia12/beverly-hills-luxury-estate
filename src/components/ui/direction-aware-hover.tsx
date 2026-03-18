@@ -68,19 +68,19 @@ export const DirectionAwareHover = ({
       onMouseEnter={handleMouseEnter}
       ref={ref}
       className={cn(
-        "bg-transparent rounded-lg overflow-hidden group/card relative",
+        "bg-transparent rounded-lg overflow-hidden group/card relative h-full",
         className
       )}
       style={style}
     >
+      {/* Image container with animation */}
       <AnimatePresence mode="wait">
         <motion.div
-          className="relative h-full w-full"
+          className="absolute inset-0 h-full w-full"
           initial="initial"
           whileHover={direction}
           exit="exit"
         >
-          <motion.div className="group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500" />
           <motion.div
             variants={variants}
             className={cn("h-full w-full relative", imageClassName)}
@@ -101,26 +101,35 @@ export const DirectionAwareHover = ({
               <div className={cn("h-full w-full", imageClassName)} style={{ background: backgroundColor || '#111111' }} />
             )}
           </motion.div>
-          {defaultContent && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center z-30 group-hover/card:opacity-0 transition-opacity duration-300">
-              {defaultContent}
-            </div>
-          )}
-          <motion.div
-            variants={textVariants}
-            transition={{
-              duration: 0.5,
-              ease: "easeOut",
-            }}
-            className={cn(
-              "text-white absolute bottom-4 left-4 z-40",
-              childrenClassName
-            )}
-          >
-            {children}
-          </motion.div>
         </motion.div>
       </AnimatePresence>
+
+      {/* Black overlay on hover - direct child of card */}
+      <div className="group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500 pointer-events-none" />
+
+      {/* Default content (if any) */}
+      {defaultContent && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-20 group-hover/card:opacity-0 transition-opacity duration-300 pointer-events-none">
+          {defaultContent}
+        </div>
+      )}
+
+      {/* Text overlay - direct child of card, appears on hover */}
+      <motion.div
+        variants={textVariants}
+        initial="initial"
+        whileHover={direction}
+        transition={{
+          duration: 0.5,
+          ease: "easeOut",
+        }}
+        className={cn(
+          "text-white absolute bottom-4 left-4 z-40 pointer-events-none",
+          childrenClassName
+        )}
+      >
+        {children}
+      </motion.div>
     </motion.div>
   );
 };
