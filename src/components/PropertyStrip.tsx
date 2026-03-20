@@ -78,7 +78,7 @@ export default function PropertyStrip() {
     <div
       style={{
         background:     'var(--color-bg-primary)',
-        padding:        '80px 80px',
+        padding:        '16px 80px',
         overflow:       'hidden',
       }}
     >
@@ -86,7 +86,7 @@ export default function PropertyStrip() {
       <div style={{
         width: '80%',
         height: '1px',
-        margin: '0 auto 48px',
+        margin: '0 auto 24px',
         background: 'linear-gradient(90deg, transparent 0%, rgba(201,169,110,0.3) 50%, transparent 100%)',
       }} />
 
@@ -150,7 +150,7 @@ export default function PropertyStrip() {
       <div style={{
         width: '80%',
         height: '1px',
-        margin: '48px auto 0',
+        margin: '24px auto 0',
         background: 'linear-gradient(90deg, transparent 0%, rgba(201,169,110,0.3) 50%, transparent 100%)',
       }} />
     </div>

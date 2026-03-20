@@ -2,11 +2,14 @@ import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import PropertyStrip from '@/components/PropertyStrip'
 import { CircularGallery } from '@/components/CircularGallery'
-import { DirectionAwareHover } from '@/components/ui/direction-aware-hover'
-import { LocationMap } from '@/components/ui/expand-map'
+import Amenities from '@/components/Amenities'
+import Location from '@/components/Location'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 import Marquee from '@/components/Marquee'
+import { ScrollProgress } from '@/components/ScrollProgress'
+import { BackToTop } from '@/components/BackToTop'
+import { SectionIndicator } from '@/components/SectionIndicator'
 import Script from 'next/script'
 
 export default function Home() {
@@ -60,6 +63,11 @@ export default function Home() {
 
   return (
     <>
+      {/* Scroll UX Components */}
+      <ScrollProgress />
+      <BackToTop />
+      <SectionIndicator />
+
       {/* Skip to main content link for accessibility */}
       <a
         href="#gallery"
@@ -87,18 +95,21 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <Navbar />
-      <Hero />
-      <Marquee text="BEVERLY HILLS ◆ MODERN ARCHITECTURE ◆ LUXURY LIVING ◆ CALIFORNIA ESTATE ◆ BEVERLY HILLS ◆ MODERN ARCHITECTURE ◆ LUXURY LIVING ◆ CALIFORNIA ESTATE" />
-      <PropertyStrip />
+      <div style={{ scrollSnapType: 'y proximity' }}>
+        <Navbar />
+        <Hero />
+        <Marquee text="BEVERLY HILLS ◆ MODERN ARCHITECTURE ◆ LUXURY LIVING ◆ CALIFORNIA ESTATE ◆ BEVERLY HILLS ◆ MODERN ARCHITECTURE ◆ LUXURY LIVING ◆ CALIFORNIA ESTATE" />
+        <PropertyStrip />
 
-      {/* Gallery Section */}
-      <main id="gallery" style={{
-        background: '#0A0A0A',
-        width: '100%',
-        height: '500vh',
-      }}>
-        <div style={{
+        {/* Gallery Section */}
+        <main id="gallery" className="gallery-section" style={{
+          background: '#0A0A0A',
+          width: '100%',
+          height: '110vh',
+          scrollSnapAlign: 'start',
+          overflowX: 'hidden',
+        }}>
+        <div className="gallery-sticky" style={{
           position: 'sticky',
           top: 0,
           width: '100%',
@@ -167,227 +178,16 @@ export default function Home() {
       <Marquee text="UNCOMPROMISING EXCELLENCE ◆ PREMIUM FINISHES ◆ ARCHITECTURAL VISION ◆ TIMELESS DESIGN ◆ UNCOMPROMISING EXCELLENCE ◆ PREMIUM FINISHES ◆ ARCHITECTURAL VISION ◆ TIMELESS DESIGN" />
 
       {/* Amenities Section */}
-      <section id="amenities" style={{
-        background: 'var(--color-bg-primary, #0A0A0A)',
-        padding: '100px 24px',
-        position: 'relative',
-      }}>
-        {/* Section heading */}
-        <div style={{
-          textAlign: 'center',
-          marginBottom: '60px',
-        }}>
-          <span style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '10px',
-            fontWeight: 500,
-            letterSpacing: '0.3em',
-            color: 'var(--color-accent-gold, #C9A96E)',
-            textTransform: 'uppercase',
-            display: 'block',
-            marginBottom: '12px',
-          }}>
-            AMENITIES
-          </span>
-          <h2 style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(2.5rem, 4vw, 4rem)',
-            fontWeight: 300,
-            color: 'var(--color-text-primary, #F5F0EB)',
-          }}>
-            <span className="text-shimmer">Premium Living</span>
-          </h2>
-        </div>
-
-        {/* Grid of amenity cards with images */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '24px',
-          maxWidth: '1200px',
-          margin: '0 auto',
-        }}>
-          <DirectionAwareHover
-            imageUrl="/assets/pool.png"
-            className="h-[350px] w-full"
-          >
-            <p style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', fontWeight: 700, margin: 0 }}>
-              Infinity Pool
-            </p>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '4px' }}>
-              Vanishing-edge overlooking the canyon
-            </p>
-          </DirectionAwareHover>
-
-          <DirectionAwareHover
-            imageUrl="/assets/kitchen.png"
-            className="h-[350px] w-full"
-          >
-            <p style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', fontWeight: 700, margin: 0 }}>
-              Gourmet Kitchen
-            </p>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '4px' }}>
-              Wolf & Sub-Zero with marble island
-            </p>
-          </DirectionAwareHover>
-
-          <DirectionAwareHover
-            imageUrl="/assets/private_home_theater.png"
-            className="h-[350px] w-full"
-          >
-            <p style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', fontWeight: 700, margin: 0 }}>
-              Private Theater
-            </p>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '4px' }}>
-              Dolby Atmos · 150-inch 4K screen
-            </p>
-          </DirectionAwareHover>
-
-          <DirectionAwareHover
-            imageUrl="/assets/wine_cellar.png"
-            className="h-[350px] w-full"
-          >
-            <p style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', fontWeight: 700, margin: 0 }}>
-              Wine Cellar
-            </p>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '4px' }}>
-              Temperature-controlled · 500+ bottles
-            </p>
-          </DirectionAwareHover>
-
-          <DirectionAwareHover
-            imageUrl="/assets/spa.png"
-            className="h-[350px] w-full"
-          >
-            <p style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', fontWeight: 700, margin: 0 }}>
-              Spa Suite
-            </p>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '4px' }}>
-              Steam room, sauna & massage suite
-            </p>
-          </DirectionAwareHover>
-
-          <DirectionAwareHover
-            imageUrl="/assets/smart_home.png"
-            className="h-[350px] w-full"
-          >
-            <p style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', fontWeight: 700, margin: 0 }}>
-              Smart Home
-            </p>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '4px' }}>
-              Full Crestron automation throughout
-            </p>
-          </DirectionAwareHover>
-        </div>
-
-        {/* Responsive: on mobile, switch to 1 column */}
-        <style>{`
-          @media (max-width: 768px) {
-            #amenities > div:last-of-type {
-              grid-template-columns: 1fr !important;
-            }
-          }
-        `}</style>
-      </section>
+      <Amenities />
 
       <Marquee text="PRIME LOCATION ◆ BEVERLY HILLS 90210 ◆ CANYON VIEWS ◆ PRESTIGIOUS ADDRESS ◆ PRIME LOCATION ◆ BEVERLY HILLS 90210 ◆ CANYON VIEWS ◆ PRESTIGIOUS ADDRESS" />
 
       {/* Location Section */}
-      <section id="location" style={{
-        background: 'var(--color-bg-primary, #0A0A0A)',
-        padding: '120px 24px',
-        position: 'relative',
-      }}>
-        <div style={{
-          maxWidth: '1100px',
-          margin: '0 auto',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '80px',
-          flexWrap: 'wrap',
-        }}>
-          {/* Left: Text content */}
-          <div style={{ maxWidth: '400px' }}>
-            <span style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '10px',
-              fontWeight: 500,
-              letterSpacing: '0.3em',
-              color: 'var(--color-accent-gold, #C9A96E)',
-              textTransform: 'uppercase',
-              display: 'block',
-              marginBottom: '16px',
-            }}>
-              LOCATION
-            </span>
-            <h2 style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2rem, 3.5vw, 3rem)',
-              fontWeight: 300,
-              color: 'var(--color-text-primary, #F5F0EB)',
-              margin: '0 0 20px',
-              lineHeight: 1.2,
-            }}>
-              <span className="text-shimmer">Prime Beverly Hills</span>
-            </h2>
-            <p style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: '16px',
-              fontStyle: 'italic',
-              color: 'var(--color-text-secondary, #A09B93)',
-              lineHeight: 1.6,
-              margin: '0 0 32px',
-            }}>
-              Minutes from Rodeo Drive, nestled among the most coveted estates in the world.
-            </p>
+      <Location />
 
-            {/* Landmarks list */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {[
-                { name: 'Rodeo Drive', distance: '2.1 mi' },
-                { name: 'Beverly Hills Hotel', distance: '1.8 mi' },
-                { name: 'Sunset Strip', distance: '3.4 mi' },
-                { name: 'Getty Center', distance: '4.2 mi' },
-              ].map((landmark) => (
-                <div key={landmark.name} style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '12px 16px',
-                  background: 'rgba(20,20,20,0.6)',
-                  backdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(201,169,110,0.06)',
-                  borderRadius: '12px',
-                  transition: 'all 0.3s ease',
-                }}>
-                  <span style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '13px',
-                    color: 'var(--color-text-primary, #F5F0EB)',
-                  }}>{landmark.name}</span>
-                  <span style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '12px',
-                    color: 'var(--color-accent-gold, #C9A96E)',
-                    letterSpacing: '0.05em',
-                  }}>{landmark.distance}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right: Interactive Map */}
-          <LocationMap
-            location="Beverly Hills, CA"
-            address="1234 Summit Ridge Drive"
-            coordinates="34.0736° N, 118.4004° W"
-          />
-        </div>
-      </section>
-
-      <Contact />
-      <Footer />
+        <Contact />
+        <Footer />
+      </div>
     </>
   )
 }
