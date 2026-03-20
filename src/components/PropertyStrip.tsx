@@ -77,8 +77,8 @@ export default function PropertyStrip() {
   return (
     <div
       style={{
-        background:     'var(--color-bg-primary)',
-        padding:        '16px 80px',
+        background:     'transparent',
+        padding:        '8px 80px',
         overflow:       'hidden',
       }}
     >
