@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef } from 'react'
+import { assetPath } from '@/lib/assetPath'
 
 export function ScrollVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -29,7 +30,7 @@ export function ScrollVideo() {
         preload="auto"
         className="w-full h-full object-cover"
       >
-        <source src="/scroll-video.mp4" type="video/mp4" />
+        <source src={assetPath('/scroll-video.mp4')} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-dark/40" />
     </section>

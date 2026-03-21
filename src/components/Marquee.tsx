@@ -7,6 +7,7 @@ type MarqueeProps = {
 export default function Marquee({ text }: MarqueeProps) {
   return (
     <div
+      className="marquee-container"
       style={{
         width: '100%',
         background: 'transparent',
@@ -17,59 +18,38 @@ export default function Marquee({ text }: MarqueeProps) {
         position: 'relative',
       }}
     >
-      <div
-        className="marquee-content"
-        style={{
-          display: 'flex',
-          width: 'fit-content',
-          animation: 'marquee 20s linear infinite',
-        }}
-      >
+      <div className="marquee-content">
         {/* First copy of text */}
-        <span
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontStyle: 'italic',
-            fontSize: '19px',
-            fontWeight: 300,
-            letterSpacing: '0.15em',
-            color: 'var(--color-accent-gold)',
-            whiteSpace: 'nowrap',
-            paddingRight: '40px',
-          }}
-        >
-          {text}
-        </span>
+        <span className="marquee-text">{text}</span>
         {/* Duplicate copy for seamless loop */}
-        <span
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontStyle: 'italic',
-            fontSize: '19px',
-            fontWeight: 300,
-            letterSpacing: '0.15em',
-            color: 'var(--color-accent-gold)',
-            whiteSpace: 'nowrap',
-            paddingRight: '40px',
-          }}
-        >
-          {text}
-        </span>
+        <span className="marquee-text">{text}</span>
       </div>
 
-      <style jsx>{`
-        @keyframes marquee {
+      <style jsx global>{`
+        .marquee-content {
+          display: flex;
+          width: fit-content;
+          animation: marquee-scroll 30s linear infinite;
+          will-change: transform;
+        }
+
+        .marquee-text {
+          font-family: var(--font-serif);
+          font-style: italic;
+          font-size: 19px;
+          font-weight: 300;
+          letter-spacing: 0.15em;
+          color: var(--color-accent-gold);
+          white-space: nowrap;
+          padding-right: 40px;
+        }
+
+        @keyframes marquee-scroll {
           0% {
             transform: translateX(0);
           }
           100% {
             transform: translateX(-50%);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .marquee-content {
-            animation-play-state: paused !important;
           }
         }
       `}</style>

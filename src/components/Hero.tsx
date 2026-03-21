@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { gsap } from '@/lib/animations'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { assetPath } from '@/lib/assetPath'
 
 export default function Hero() {
   const [vidFailed, setVidFailed] = useState(false)
@@ -131,8 +132,8 @@ export default function Hero() {
       {!vidFailed ? (
         <video
           ref={videoRef}
-          src="/hero-video.mp4"
-          poster="/hero-golden.jpg"
+          src={assetPath('/hero-video.mp4')}
+          poster={assetPath('/hero-golden.jpg')}
           autoPlay
           muted
           loop
@@ -157,7 +158,7 @@ export default function Hero() {
           style={{
             position:           'absolute',
             inset:              0,
-            backgroundImage:    "url('/hero-golden.jpg')",
+            backgroundImage:    `url('${assetPath('/hero-golden.jpg')}')`,
             backgroundSize:     'cover',
             backgroundPosition: 'center center',
             animation:          'ken-burns 14s ease-out forwards',

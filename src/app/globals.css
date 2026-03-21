@@ -84,7 +84,7 @@
 
 /* ─── Base ───────────────────────────────────────────── */
 html {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
   font-size: 16px;
 }
 
@@ -316,6 +316,13 @@ button:focus-visible {
   animation: shimmer 4s linear infinite;
 }
 
+/* Section indicator - hide on mobile */
+@media (max-width: 1024px) {
+  .section-indicator-desktop {
+    display: none !important;
+  }
+}
+
 /* Sequential shimmer delays for stats */
 .text-shimmer-delay-1 { animation-delay: 0.5s; }
 .text-shimmer-delay-2 { animation-delay: 1s; }
@@ -338,5 +345,18 @@ button:focus-visible {
   border: var(--glass-border-hover);
   box-shadow: var(--shadow-card-hover);
   transform: translateY(-2px);
+}
+
+/* ─── Mobile Gallery Responsive Styles ─── */
+@media (max-width: 768px) {
+  .gallery-section {
+    height: auto !important;
+    min-height: unset !important;
+    overflow: visible !important;
+  }
+  .gallery-sticky {
+    position: relative !important;
+    top: auto !important;
+  }
 }
 

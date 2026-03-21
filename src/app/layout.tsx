@@ -10,11 +10,11 @@ export const metadata: Metadata = {
   description: 'Discover this extraordinary 6,500 sq ft contemporary masterpiece in Beverly Hills. Featuring 5 bedrooms, 6 bathrooms, infinity pool, home theater, and breathtaking canyon views. $8,750,000.',
   keywords: ['Beverly Hills real estate', 'luxury homes', 'modern architecture', 'Beverly Hills 90210', 'luxury estate', 'contemporary mansion'],
   authors: [{ name: 'Obsidian Luxury Real Estate' }],
-  metadataBase: new URL('https://obsidianluxury.com'),
+  metadataBase: new URL('https://salonipatadia12.github.io/beverly-hills-luxury-estate'),
   openGraph: {
     title: 'Modern Architectural Masterpiece | Beverly Hills',
     description: 'Extraordinary 6,500 sq ft contemporary estate in Beverly Hills with 5 beds, 6 baths, infinity pool, and canyon views.',
-    url: 'https://obsidianluxury.com',
+    url: 'https://salonipatadia12.github.io/beverly-hills-luxury-estate',
     siteName: 'Obsidian Luxury Real Estate',
     images: [
       {
