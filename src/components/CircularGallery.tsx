@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Lightbox } from './Lightbox';
+import { assetPath } from '@/lib/assetPath';
 
 export interface GalleryItem {
   title: string;
@@ -122,7 +123,7 @@ export function CircularGallery({ items, radius = 700, autoRotateSpeed = 0.015 }
                 }}
               >
                 <Image
-                  src={item.src}
+                  src={assetPath(item.src)}
                   alt={item.alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 420px"
@@ -250,7 +251,7 @@ export function CircularGallery({ items, radius = 700, autoRotateSpeed = 0.015 }
                 }}
               >
                 <Image
-                  src={item.src}
+                  src={assetPath(item.src)}
                   alt={item.alt}
                   fill
                   sizes="420px"
