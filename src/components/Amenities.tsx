@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { assetPath } from '@/lib/assetPath'
 
 // SVG Icons
 const WaveIcon = () => (
@@ -184,7 +185,7 @@ function AmenityCard({ amenity, index }: { amenity: typeof AMENITIES[0], index: 
           style={{
             position: 'absolute',
             inset: '-10%',
-            backgroundImage: `url(${amenity.image})`,
+            backgroundImage: `url(${assetPath(amenity.image)})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: isHovered ? 'brightness(0.6)' : 'brightness(0.5)',
